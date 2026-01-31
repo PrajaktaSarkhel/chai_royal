@@ -1,68 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --color-royal-gold: #D4AF37;
+  --color-royal-gold-light: #F1D37E;
+  --color-royal-umber: #2C1810;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --bg-primary: #FDFBF7;
+  --text-primary: #2C1810;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+[data-theme='dark'] {
+  --bg-primary: #0F0F0F;
+  --text-primary: #FDFBF7;
 }
 
 body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.5s ease, color 0.5s ease;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* --- THE SILK & SHIMMER SYSTEM --- */
+
+.premium-container {
+  position: relative;
   min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--bg-primary);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* The Silk Texture Layer */
+.premium-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.12; /* Increased slightly for visibility */
+  pointer-events: none;
+  background-image: url("https://www.transparenttextures.com/patterns/pinstriped-suit.png");
+  background-repeat: repeat;
+  filter: contrast(120%) brightness(90%);
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* The Moving Light Shimmer Layer */
+.shimmer-glow {
+  position: absolute;
+  inset: -50%;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center, 
+    rgba(212, 175, 55, 0.3) 0%, 
+    rgba(212, 175, 55, 0.1) 25%, 
+    transparent 60%
+  );
+  animation: move-glow 15s linear infinite;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+@keyframes move-glow {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(15%, 10%) rotate(5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* --- ANIMATIONS --- */
+
+@keyframes gold-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gold-gradient-border {
+  background: linear-gradient(90deg, #B8860B, #D4AF37, #F1D37E, #D4AF37, #B8860B);
+  background-size: 200% auto;
+  animation: gold-flow 4s linear infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-royal-fade {
+  animation: fadeIn 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
