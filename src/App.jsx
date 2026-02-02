@@ -56,10 +56,10 @@ const App = () => {
       <div className="shimmer-glow pointer-events-none" />
 
       {/* --- NAVIGATION --- */}
-      <nav className={`fixed top-0 w-full z-[100] transition-all duration-500 flex justify-center px-6 ${
+      <nav className={`fixed top-0 left-0 right-0 w-screen z-[100] transition-all duration-500 flex justify-center px-4 ${
         scrolled ? 'bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-royal-gold/10 py-3' : 'bg-transparent py-6'
       }`}>
-        <div className="w-full max-w-7xl flex justify-between items-center relative px-1">
+        <div className="w-full max-w-7xl flex justify-between items-center overflow-hidden">
           
           {/* BRAND LOGO WITH CROWN */}
           <div className="flex items-center gap-3 cursor-pointer group">
@@ -81,7 +81,7 @@ const App = () => {
           </div>
 
           {/* Theme Toggle */}
-          <div className="flex items-center gap-3 relative">
+          <div className="flex items-center gap-2 md:gap-3 shrink-0">
 
             {/* Desktop theme toggle – unchanged */}
             <button
@@ -207,7 +207,7 @@ const App = () => {
       </main>
 
       {/* --- ELABORATE FOOTER (Right-Aligned Socials) --- */}
-      <footer className="w-full bg-[#1a1512] text-[#fdfaf5]/80 pt-16 pb-8 px-6 md:px-10">
+      <footer className="w-full bg-[#1a1512] text-[#fdfaf5]/80 pt-16 pb-8 px-4 md:px-10">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-white/5 pb-12 text-center md:text-left">
             
