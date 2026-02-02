@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Instagram, Twitter, Facebook, Send, Crown, Moon, Sun, MapPin, Mail, Phone } from 'lucide-react';
+import { Instagram, Twitter, Facebook, Send, Crown, Moon, Sun, MapPin, Mail, Phone, Menu,
+  X } from 'lucide-react';
 
 const App = () => {
   const [theme, setTheme] = useState('light');
   const [email, setEmail] = useState('');
   const [scrolled, setScrolled] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
+  const [menuOpen, setMenuOpen] = useState(false);
 
   // 1. DYNAMIC CROWN LOGO & FAVICON LOGIC
   useEffect(() => {
@@ -79,13 +81,63 @@ const App = () => {
           </div>
 
           {/* Theme Toggle */}
-          <button onClick={toggleTheme} className="relative w-14 h-7 rounded-full bg-royal-gold/10 flex items-center px-1 border border-royal-gold/30 hover:scale-105 transition-all">
-            <div className={`w-5 h-5 rounded-full gold-gradient-border flex items-center justify-center transition-all duration-500 ${theme === 'dark' ? 'translate-x-7' : 'translate-x-0'}`}>
-              {theme === 'light' ? <Sun size={12} className="text-white" /> : <Moon size={12} className="text-white" />}
-            </div>
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Theme Toggle (unchanged, desktop only) */}
+            <button
+              onClick={toggleTheme}
+              className="relative w-14 h-7 rounded-full bg-royal-gold/10 hidden md:flex items-center px-1 border border-royal-gold/30 hover:scale-105 transition-all"
+            >
+              <div
+                className={`w-5 h-5 rounded-full gold-gradient-border flex items-center justify-center transition-all duration-500 ${
+                  theme === 'dark' ? 'translate-x-7' : 'translate-x-0'
+                }`}
+              >
+                {theme === 'light' ? (
+                  <Sun size={12} className="text-white" />
+                ) : (
+                  <Moon size={12} className="text-white" />
+                )}
+              </div>
+            </button>
+
+            {/* Hamburger (mobile only) */}
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="md:hidden p-2 rounded-full border border-royal-gold/30 text-royal-gold hover:bg-royal-gold/10 transition"
+            >
+              {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
       </nav>
+
+      {/* Mobile Nav Menu */}
+      <div
+        className={`fixed top-[72px] left-0 w-full z-[90] md:hidden transition-all duration-300 ${
+          menuOpen
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}
+      >
+        <div className="mx-6 rounded-2xl bg-[var(--bg-primary)]/95 backdrop-blur-xl border border-royal-gold/20 shadow-2xl">
+          <div className="flex flex-col divide-y divide-royal-gold/10 text-center uppercase tracking-[0.3em] text-[10px] font-bold opacity-70">
+            <a onClick={() => setMenuOpen(false)} className="py-4 hover:text-royal-gold cursor-pointer">Heritage</a>
+            <a onClick={() => setMenuOpen(false)} className="py-4 hover:text-royal-gold cursor-pointer">Blends</a>
+            <a onClick={() => setMenuOpen(false)} className="py-4 hover:text-royal-gold cursor-pointer">Concierge</a>
+
+            <button
+              onClick={() => {
+                toggleTheme();
+                setMenuOpen(false);
+              }}
+              className="py-4 flex items-center justify-center gap-2 text-royal-gold"
+            >
+              {theme === 'light' ? <Moon size={14} /> : <Sun size={14} />}
+              Toggle Theme
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* --- HERO SECTION --- */}
       <main className="relative flex-1 flex flex-col items-center justify-center text-center max-w-5xl mx-auto z-10 px-6 py-24 animate-royal-fade">
