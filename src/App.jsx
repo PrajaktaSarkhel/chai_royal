@@ -59,7 +59,7 @@ const App = () => {
       <nav className={`fixed top-0 w-full z-[100] transition-all duration-500 flex justify-center px-6 ${
         scrolled ? 'bg-[var(--bg-primary)]/80 backdrop-blur-xl border-b border-royal-gold/10 py-3' : 'bg-transparent py-6'
       }`}>
-        <div className="w-full max-w-7xl flex justify-between items-center">
+        <div className="w-full max-w-7xl flex justify-between items-center relative px-1">
           
           {/* BRAND LOGO WITH CROWN */}
           <div className="flex items-center gap-3 cursor-pointer group">
@@ -81,8 +81,9 @@ const App = () => {
           </div>
 
           {/* Theme Toggle */}
-          <div className="flex items-center gap-3">
-            {/* Theme Toggle (unchanged, desktop only) */}
+          <div className="flex items-center gap-3 relative">
+
+            {/* Desktop theme toggle – unchanged */}
             <button
               onClick={toggleTheme}
               className="relative w-14 h-7 rounded-full bg-royal-gold/10 hidden md:flex items-center px-1 border border-royal-gold/30 hover:scale-105 transition-all"
@@ -100,7 +101,15 @@ const App = () => {
               </div>
             </button>
 
-            {/* Hamburger (mobile only) */}
+            {/* Mobile theme toggle */}
+            <button
+              onClick={toggleTheme}
+              className="md:hidden p-2 rounded-full border border-royal-gold/30 text-royal-gold hover:bg-royal-gold/10 transition"
+            >
+              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
+
+            {/* Hamburger – unchanged */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden p-2 rounded-full border border-royal-gold/30 text-royal-gold hover:bg-royal-gold/10 transition"
@@ -108,6 +117,7 @@ const App = () => {
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
+
         </div>
       </nav>
 
@@ -197,9 +207,9 @@ const App = () => {
       </main>
 
       {/* --- ELABORATE FOOTER (Right-Aligned Socials) --- */}
-      <footer className="w-full bg-[#1a1512] text-[#fdfaf5]/80 pt-16 pb-8 px-10">
+      <footer className="w-full bg-[#1a1512] text-[#fdfaf5]/80 pt-16 pb-8 px-6 md:px-10">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-white/5 pb-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-white/5 pb-12 text-center md:text-left">
             
             {/* Left: Branding */}
             <div className="space-y-4 text-center md:text-left">
